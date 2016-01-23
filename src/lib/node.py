@@ -27,6 +27,6 @@ class Node(object):
             If this one does not exists, a simple message error will be display.
         """
         try:
-            self.attributes.remove(attribute_id)
-        except Exception as e:
+            self.attributes.pop(attribute_id, None)
+        except KeyError as e:
             print("ERROR: Canno't remove {0} from the object {1} : {2}".format(attribute_id, self.id, e))
