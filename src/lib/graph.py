@@ -1,54 +1,63 @@
 class Graph(object):
     """
-        A Graph object is labeled by an id, and contains a list of Nodes objects and a dictionary of edges.
-        The graph can be directed or not directed -> the configuration will be interfered on the dictionary of edges.
-        The default graph is not directed.
+        A Graph object is an object which represents a simple graph.
+        The Graph object contains a list of Node objects, and a list of Relation objects.
     """
-    def __init__(self, arg, directed = False):
+    def __init__(self, id, nodes, relations):
         super(Graph, self).__init__()
-        self.arg = arg
-        self.nodes = []
-        self.edges = {}
-        self.directed = False
+        self.id = id
+        self.nodes = nodes
+        self.relations = relations
 
-    def set_id(self, new_id):
+    def add_relation(self, relation):
         """
-            Method to modify the id of the object.
+            Method to add a Relation object in the Graph object.
         """
-        self.id = new_id
+        if not relation in self.relations:
+            self.relations.append(relation)
 
-    def add_node(self, node):
+    def remove_relation(self, relation):
         """
-            Method to add a Node object in the list of nodes.
-            If the node is already in the list, a simple message error will be display.
+            Method to remove a Relation object.
+            If this object is not contained in the relations list, the method display a simple message error.
         """
-        if not node in self.nodes:
-            self.nodes.append(node)
-        else:
-            print("ERROR: This node already exists!")
+        try:
+            self.relations.remove(relation)
+        except:
+            print("ERROR: The relation {0} does not exists for the graph {1}".format(relation.id, self.id))
 
-    def add_target(self, source, target):
+    def get_relations(self):
         """
-            Method to add a target to a source node.
+            Method to get relations from the graph.
+            This method returns an empty list if it does not contains any Relation object.
         """
-        if not source in self.edges:
-            self.edges[source] = []
-        self.edges[source].append(target)
+        return [relation.id for relation in self.relations]
 
-    def add_edge(self, edge):
+    def print_nodes(self):
         """
-            Method to add an edge in the object.
-            The source node of the edge will be the target node of a new edge, and will be added in the dictionary of edges if the graph is not directed!
-            If the source node or the target node is not in the list of Nodes objects, or if the edge is already in the base of graph, a simple message error will be display.
+            Method to print nodes contains in the Graph object.
         """
-        source_node = edge[0]
-        target_node = edge[1]
-        if (source_node in self.nodes) and (target_node in self.nodes):
-            if not edge in self.edges:
-                self.add_target(source_node, target_node)
-                if not self.directed:
-                    self.add_target(target_node, source_node)
-            else:
-                print("ERROR: This edge already exists!")
-        else:
-            print("ERROR: You can't create an edge with non-initialized nodes. Please to add edges with existing nodes, contained in the list of this object!")
+        print("* Nodes:")
+        for n in self.nodes:
+            print("\t {0}".format(n.id))
+
+    def print_relations(self):
+        """
+            Method to print edges contains in the Graph object.
+        """
+        print("* Relations:")
+        for r in self.relations:
+            print("\tRelation \"{0}\"".format(r.id))
+            print("\t", end="")
+            print("#"*len("Relation \"{0}\"".format(r.id)))
+            r.print_nodes()
+            r.print_edges()
+            print("")
+
+    def print_all(self):
+        """
+            Method to print nodes and edges.
+        """
+        print("Graph \"{0}\"".format(self.id))
+        self.print_nodes()
+        self.print_relations()
