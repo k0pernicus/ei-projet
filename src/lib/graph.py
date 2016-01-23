@@ -62,6 +62,7 @@ class Graph(object):
         print("* Nodes:")
         for n in self.nodes:
             print("\t {0}".format(n.id))
+        print("")
 
     def print_relations(self):
         """
