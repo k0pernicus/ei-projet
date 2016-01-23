@@ -33,6 +33,28 @@ class Graph(object):
         """
         return [relation.id for relation in self.relations]
 
+    def resolve(self, goal):
+        """
+            Method to resolve the goal
+        """
+        solutions = []
+        for relation in goal.relations:
+            edges = self.relations[self.relations.index(relation[0])].edges
+            all_tuples_tmp = list(edges.items())
+            all_tuples = []
+            for i in range(0, len(all_tuples_tmp)):
+                all_tuples += [(all_tuples_tmp[i][0], k) for k in all_tuples_tmp[i][1]]
+            if solutions == []:
+                solutions = all_tuples
+            else:
+                solutions_tmp = []
+                for s in solutions:
+                    source = s[0]
+                    target = s[1]
+                    solutions_tmp += [(source, v) for (k,v) in all_tuples if (k == target)]
+                solutions = solutions_tmp
+        return solutions
+
     def print_nodes(self):
         """
             Method to print nodes contains in the Graph object.
