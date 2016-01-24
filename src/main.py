@@ -34,11 +34,16 @@ def test():
 
     g.print_all()
 
-    goal = Rule("Goal", ["x", "y"], [(r, ("x","z")), (s,("z", "y"))], goal=True)
+    pr_0 = Rule("pr_0", ["x", "y"], [(r, ("x", "z")), (s, ("z", "y"))])
 
-    solutions = g.resolve(goal)
+    goal = Rule("Goal", ["x", "y"], [(pr_0, ("x","y"))], goal=True)
+
+    rules = [pr_0, goal]
+
+    solutions = g.resolve(rules)
+    print("Solutions:")
     for s in solutions:
-        print("{0} - {1}".format(s[0].id, s[1].id))
+        print("\t* ({0} - {1})".format(s[0].id, s[1].id))
 
 if __name__ == '__main__':
     test()
