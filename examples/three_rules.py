@@ -34,12 +34,14 @@ def test():
 
     g.print_all()
 
-    pr_0 = Rule("pr_0", ["x", "y"], [(r, ("x", "z")), (s, ("z", "y"))])
+    pr_0 = Rule("pr_0", ["x", "y"], [(r, ("x", "y"))])
+    pr_1 = Rule("pr_1", ["x", "y"], [(s, ("x", "y"))])
+    pr_2 = Rule("pr_2", ["x", "y"], [(t, ("x", "y"))])
 
-    goal = Rule("Goal", ["x", "y"], [(pr_0, ("x","y"))], goal=True)
+    goal = Rule("Goal", ["x", "y"], [(pr_0, ("x","w")), (pr_1, ("w","z")), (pr_2, ("z","y"))], goal=True)
 
-    rules = [pr_0, goal]
-    
+    rules = [pr_0, pr_1, pr_2, goal]
+
     print("Rules:")
     for r in rules:
         print("\t* {}".format(r))

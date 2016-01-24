@@ -34,12 +34,10 @@ def test():
 
     g.print_all()
 
-    pr_0 = Rule("pr_0", ["x", "y"], [(r, ("x", "z")), (s, ("z", "y"))])
+    goal = Rule("Goal", ["x", "y"], [(r, ("x","w")), (s, ("w", "z")), (t, ("z", "y"))], goal=True)
 
-    goal = Rule("Goal", ["x", "y"], [(pr_0, ("x","y"))], goal=True)
+    rules = [goal]
 
-    rules = [pr_0, goal]
-    
     print("Rules:")
     for r in rules:
         print("\t* {}".format(r))
