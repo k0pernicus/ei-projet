@@ -40,10 +40,19 @@ def test():
 
     rules = [pr_0, goal]
 
+    print("Rules:")
+    for r in rules:
+        print("\t* {}".format(r))
+
+    print("")
+
     solutions = g.resolve(rules)
-    print("Solutions:")
-    for s in solutions:
-        print("\t* ({0} - {1})".format(s[0].id, s[1].id))
+    if len(solutions) != 0:
+        print("Solutions:")
+        for s in solutions:
+            print("\t* ({0} - {1})".format(s[0].id, s[1].id))
+    else:
+        print("No solution!")
 
 if __name__ == '__main__':
     test()
