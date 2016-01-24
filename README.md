@@ -7,6 +7,24 @@ Carette Antonin (antonin.carette[at]etudiant[dot]univ-lille1[dot]fr)
 # Langage de programmation
 Python3 (version 4)
 
+# Utilisation
+
+Des objets Python sont à votre disposition pour créer votre propre graphe, et vos propres règles.  
+Vous pouvez ainsi créer des noeuds (Node) et des relations entre ces derniers (Relation), afin de pouvoir importer le tout dans un graphe (Graph).  
+Après, il vous sera demandé d'ajouter des règles (Rule - avec une règle **GOAL**) et de demander à résoudre le problème de **GOAL** dans le graphe que vous souhaitez.
+
+Un exemple documenté est présent dans ```src/main.py```.
+Trois exemples sont à votre disposition, afin de voir la syntaxe des objets, conçu dans le même modèle que l'exemple ci-dessous (dans le dossier ```examples```).  
+Aussi, les objets et leur documentation sont à votre disposition dans le sous-module ```lib``` de ```src```.
+
+Pour l'exécution:
+*	créez votre modèle et vos règles dans un fichier ```mon_modele.py```,
+*	résolvez le avec ```python3.4 mon_modele.py```.
+
+Pour tester, vous pouvez très bien utiliser un exemple contenu dans le dossier ```examples```, comme par exemple:
+*	```cd src && cp ../examples/three_rules.py ./```
+*	```python3.4 three_rules.py```
+
 # Exemple
 
 Sur un schéma tel que
@@ -22,9 +40,11 @@ quatro -> uno (T)
 
 et une règle **GOAL** permettant de trouver tous les chemins empruntants les relations *r*, *s* et *t*
 
-```goal = Rule("Goal", ["x", "y"], [(r, ("x","w")), (s, ("w", "z")), (t, ("z", "y"))], goal=True)```
+```
+goal = Rule("Goal", ["x", "y"], [(r, ("x","w")), (s, ("w", "z")), (t, ("z", "y"))], goal=True)
+```
 
-nous obtenons au final...
+(ici, les atomes ne seront pas parsées par le programme - ainsi, une suite r(x,y) s(y,z) sera perçu comme une suite de règles!), nous obtenons en sortie
 
 ```
 Graph "graph"
