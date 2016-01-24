@@ -51,17 +51,16 @@ class Graph(object):
                 instructions.append(self.relations[self.relations.index(name_instruction)].edges)
             elif name_instruction.__class__.__name__ == "Rule":
                 for i, relation in enumerate(name_instruction.relations):
-                    instructions.insert(i, relation)
+                    relations.insert(i, relation)
             else:
                 sys.exit("ERROR: Problem with relation {0} -> type not found!".format(name_instruction.id))
 
-        for relation in instructions:
-            edges = self.relations[self.relations.index(relation[0])].edges
-            all_tuples_tmp = list(edges.items())
+        for (index_r, relation) in enumerate(instructions):
+            all_tuples_tmp = list(relation.items())
             all_tuples = []
             for i in range(0, len(all_tuples_tmp)):
                 all_tuples += [(all_tuples_tmp[i][0], k) for k in all_tuples_tmp[i][1]]
-            if solutions == []:
+            if (solutions == []) and (index_r == 0):
                 solutions = all_tuples
             else:
                 solutions_tmp = []
