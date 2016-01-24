@@ -33,12 +33,29 @@ class Graph(object):
         """
         return [relation.id for relation in self.relations]
 
-    def resolve(self, goal):
+    def resolve(self, rules):
         """
             Method to resolve the goal
         """
+        goal = rules.pop()
         solutions = []
-        for relation in goal.relations:
+        relations = []
+        instructions = []
+
+        relations = goal.relations
+
+        while len(relations) != 0:
+            current_relation = relations.pop(0)
+            name_instruction = current_relation[0]
+            if name_instruction.__class__.__name__ == "Relation":
+                instructions.append(self.relations[self.relations.index(name_instruction)].edges)
+            elif name_instruction.__class__.__name__ == "Rule":
+                for i, relation in enumerate(name_instruction.relations):
+                    instructions.insert(i, relation)
+            else:
+                sys.exit("ERROR: Problem with relation {0} -> type not found!".format(name_instruction.id))
+
+        for relation in instructions:
             edges = self.relations[self.relations.index(relation[0])].edges
             all_tuples_tmp = list(edges.items())
             all_tuples = []
